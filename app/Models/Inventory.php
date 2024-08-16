@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Inventory extends Model
 {
     use HasFactory;
-
+    protected $table = 'inventory';
     protected $fillable = ['name', 'quantity', 'price', 'expiration_date', 'user_id'];
 
     // Definir o relacionamento com o modelo User
