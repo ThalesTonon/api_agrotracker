@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,17 @@ class AuthController extends Controller
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
+        if (!$user) {
+            return response()->json(['message' => 'Erro ao criar usuário'], 500);
+        }
+        $messageBody = 'Seja bem-vindo ao ' . config('app.name') . ', ' . $user->name . '!';
+        $details = [
+            'title' => 'Mensagem de ' . config('app.name'),
+            'body' => $messageBody,
+        ];
+
+
+        Mail::to($user->email)->send(new SendMail($details));
         return response()->json($user, 201);
     }
     // Função para fazer login
