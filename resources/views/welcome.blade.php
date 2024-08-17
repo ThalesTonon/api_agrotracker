@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API AgroTracker</title>
+    <link rel="icon" type="image/x-icon" href="https://thalestonon.com.br/img/agroTrackerLogo.png">
+
     <style>
         * {
             box-sizing: border-box;
@@ -53,11 +55,16 @@
             font-size: 1em;
             white-space: pre-line;
         }
+
+        img {
+            max-width: 200px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
+        <img src="https://thalestonon.com.br/img/agroTrackerLogo.png" alt="Logo AgroTracker">
         <h1>API AgroTracker</h1>
         <p>Bem-vindo à API da aplicação AgroTracker!</p>
         <p>Esta URL é parte da API que suporta o sistema de gerenciamento de estoque para agronegócio familiar.</p>
