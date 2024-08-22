@@ -25,6 +25,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
+            'company_id' => 'required|exists:company,id',
+            'role' => 'required|in:Super,Admin,Colaborador',
         ]);
 
         // Criptografar a senha antes de salvar
@@ -40,6 +42,9 @@ class UserController extends Controller
             'name' => 'sometimes|required|string|max:255',
             'email' => 'sometimes|required|string|email|max:255|unique:users,email,' . $id,
             'password' => 'sometimes|required|string|min:8',
+            'company_id' => 'sometimes|required|exists:company,id',
+            'role' => 'sometimes|required|in:Super,Admin,Colaborador',
+
         ]);
 
         $user = User::findOrFail($id);

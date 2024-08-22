@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmailApiController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\EventController;
@@ -14,8 +15,10 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
-Route::apiResource('events', EventController::class)->middleware('auth:sanctum');
+Route::apiResource('users', UserController::class);
+Route::apiResource('company', CompanyController::class);
+Route::get('/company/{company}/users', [CompanyController::class, 'users']);
+Route::apiResource('events', EventController::class);
 Route::apiResource('financial-records', FinancialRecordController::class)->middleware('auth:sanctum');
 Route::apiResource('inventory', InventoryController::class)->middleware('auth:sanctum');
 Route::apiResource('equipment', EquipmentController::class)->middleware('auth:sanctum');
