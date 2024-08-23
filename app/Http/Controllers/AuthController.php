@@ -52,14 +52,22 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
         if (!Auth::attempt($validated)) {
-            return response()->json(['message' => 'Credenciais inválidas'], 401);
+            return response()->json(['message' => 'Credenciais inválidas'], 400);
         }
         $user = User::where('email', $validated['email'])->firstOrFail();
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        // Definindo a expiração do token manualmente
+        $tokenResult = $user->createToken('auth_token');
+        $token = $tokenResult->plainTextToken;
+        $tokenResult->accessToken->expires_at = now()->addHours(2);
+        $tokenResult->accessToken->save();
+        $expires_at = $tokenResult->accessToken->expires_at->setTimezone('America/Sao_Paulo')->format('Y-m-d H:i:s');
+
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
+            'expires_at' => $expires_at,
+            'user' => $user,
         ]);
     }
     // Função de Logout
