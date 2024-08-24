@@ -15,7 +15,7 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('users', UserController::class);
+Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
 Route::apiResource('company', CompanyController::class);
 Route::get('/company/{company}/users', [CompanyController::class, 'users'])->middleware('auth:sanctum');
 Route::apiResource('events', EventController::class)->middleware('auth:sanctum');
