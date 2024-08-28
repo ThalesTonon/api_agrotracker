@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
@@ -25,6 +26,7 @@ class EventController extends Controller
             'start' => 'required|date',
             'end' => 'nullable|date',
             'user_id' => 'required|exists:users,id',
+            'company_id' => 'required|exists:company,id',
         ]);
 
         $event = Event::create($validated);
@@ -39,11 +41,17 @@ class EventController extends Controller
             'start' => 'sometimes|required|date',
             'end' => 'nullable|date',
             'user_id' => 'sometimes|required|exists:users,id',
+            'company_id' => 'sometimes|required|exists:company,id',
         ]);
 
         $event = Event::findOrFail($id);
         $event->update($validated);
         return response()->json($event);
+    }
+    public function showEventsByCompany($id)
+    {
+        $events = Event::where('company_id', $id)->orderBy('start')->get();
+        return response()->json($events);
     }
 
     public function destroy($id)
