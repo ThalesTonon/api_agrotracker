@@ -7,6 +7,7 @@ use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FinancialRecordController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,11 @@ Route::get('/company/{company}/users', [CompanyController::class, 'users'])->mid
 // Rotas Event
 Route::apiResource('events', EventController::class);
 Route::get('/events/company/{company}', [EventController::class, 'showEventsByCompany'])->middleware('auth:sanctum');
+
+// Rotas Produtos
+Route::apiResource('products', ProductController::class);
+Route::post('/products/{id}', [ProductController::class, 'storeProducts']);
+
 Route::apiResource('financial-records', FinancialRecordController::class)->middleware('auth:sanctum');
 Route::apiResource('inventory', InventoryController::class)->middleware('auth:sanctum');
 Route::apiResource('equipment', EquipmentController::class)->middleware('auth:sanctum');
