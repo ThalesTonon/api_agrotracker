@@ -1,13 +1,16 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CodeCheckController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmailApiController;
 use App\Http\Controllers\EquipmentController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\FinancialRecordController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\StorageController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -45,3 +48,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanc
 
 // Rotas dos Emails
 Route::post('/send-email', [EmailApiController::class, 'sendEmail']);
+
+
+
+Route::post('password/email',  ForgotPasswordController::class);
+Route::post('password/code/check', CodeCheckController::class);
+Route::post('password/reset', ResetPasswordController::class);
