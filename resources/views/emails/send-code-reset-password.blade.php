@@ -7,5 +7,5 @@
 
 <p> Para redefinir sua senha, clique no botão abaixo. </p>
 
-<a href="https://agrotracker.vercel.app/forgot-password" class="btn btn-primary">Redefinir Senha</a>
+<a href="https://agrotracker.vercel.app/code/check" class="btn btn-primary">Redefinir Senha</a>
 @endsection

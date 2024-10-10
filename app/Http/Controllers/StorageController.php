@@ -116,7 +116,7 @@ class StorageController extends Controller
     }
     public function showStoragesByCompany($id)
     {
-        $storages = Storage::where('company_id', $id)->orderby('name')->get();
+        $storages = Storage::where('company_id', $id)->orderby('entry_date', "DESC")->get();
 
         foreach ($storages as $storage) {
             $storage->unitary_value = number_format($storage->unitary_value, 2, ',', '.');
@@ -142,12 +142,12 @@ class StorageController extends Controller
     {
 
         $companyId = $id;
-        $expirationDate = now()->addDays(7);
+        $expirationDate7Days = now()->addDays(7);
 
         $products = Storage::where('company_id', $companyId)
             ->whereNotNull('expiration_date')
             ->whereDate('expiration_date', '>=', now())
-            ->whereDate('expiration_date', '<=', $expirationDate)
+            ->whereDate('expiration_date', '<=', $expirationDate7Days)
             ->get();
 
         return response()->json($products, 200);
